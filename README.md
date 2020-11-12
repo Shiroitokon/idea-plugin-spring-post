@@ -57,6 +57,7 @@ ___
 #### void loadState(T state)
 保存持久化信息数据
 
+## 插件开发常用方法
 
 
 

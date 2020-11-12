@@ -99,8 +99,8 @@ public class GeeBooPostAction extends AnAction {
                 continue;
             }
 
-            //过滤spring org.springframework.validation.BindingResult
-            if(className.equals("org.springframework.validation.BindingResult")) {
+            //过滤类型
+            if(className.equals("org.springframework.validation.BindingResult") ||                    className.equals("javax.servlet.http.HttpServletResponse")) {
                 continue;
             }
 
@@ -133,12 +133,30 @@ public class GeeBooPostAction extends AnAction {
         for(PsiField field: allFields) {
             //如果为枚举
             String name = field.getName();
+
+            //过滤指定名称
+            if(name.equals("serialVersionUID")) {
+                continue;
+            }
+
+            String canonicalText = field.getType().getCanonicalText();
+            //如果为基础类型
+            if(checkBaseType(canonicalText)) {
+                src.put(name, ParamValueUtils.valueGenerate(name, canonicalText));
+                continue;
+            }
+
             PsiClass psiClass = PsiUtil.resolveClassInType(field.getType());
+
+            if(psiClass == null) {
+                src.put(name, ParamValueUtils.valueGenerate(name, canonicalText));
+                continue;
+            }
+
             if(psiClass.isEnum()) {
                 handleEnumParam(name, psiClass, src);
                 continue;
             }
-            String canonicalText = field.getType().getCanonicalText();
             src.put(name, ParamValueUtils.valueGenerate(name, canonicalText));
         }
     }
@@ -212,7 +230,7 @@ public class GeeBooPostAction extends AnAction {
             return "";
         }
         String srcText = psiClassUrl.getText();
-        if(srcText == null || srcText.equals("")) {
+        if(srcText == null || srcText.equals("") || srcText.equals("{}")) {
             return "";
         }
 
@@ -234,7 +252,7 @@ public class GeeBooPostAction extends AnAction {
         }
 
         String srcText = psiMethodUrl.getText();
-        if(srcText == null || srcText.equals("")) {
+        if(srcText == null || srcText.equals("") || srcText.equals("{}")) {
             return "";
         }
 

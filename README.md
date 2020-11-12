@@ -97,4 +97,6 @@ field: PsiField 类属性元数据
 PsiClass psiClass = PsiUtil.resolveClassInType(field.getType());
 
 
+## License
 
+[MIT](LICENSE) © Shiroitokon

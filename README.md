@@ -61,9 +61,11 @@ ___
 ___
 ### AnActionEvent event
 ##### 获取当前编辑项目
+
 ···
 Project project = event.getData(LangDataKeys.PROJECT);
 ···
+
 ##### 获取当前项目的模块名称
 ···
 Module module = event.getData(LangDataKeys.MODULE);

@@ -1,0 +1,31 @@
+<idea-plugin>
+    <id>com.shiroito.geebook-post-plugin</id>
+    <name>简帛post</name>
+    <vendor>Geeboo</vendor>
+
+    <description>简帛post----------------------------------------</description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <!-- 设置菜单栏 -->
+        <applicationConfigurable instance="com.geeboo.shiroito.windows.GeeBooPostConfigurable"
+                                 id="GeeBooPostConfigurable"/>
+        <!-- 设置数据持久化 -->
+        <applicationService serviceImplementation="com.geeboo.shiroito.storage.GeeBooPostStorageService" serviceInterface="com.geeboo.shiroito.storage.GeeBooPostStorageService"/>
+
+        <toolWindow id="geebooPost" anchor="right" canCloseContents="false"  secondary="true"
+                    factoryClass="com.geeboo.shiroito.windows.GeeBooPostWindowFactory"/>
+
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="GeeBookPostAction" class="com.geeboo.shiroito.action.GeeBooPostAction" text="简帛post">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

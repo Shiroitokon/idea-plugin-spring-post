@@ -12,4 +12,4 @@ ___
 4. 右键对应的测试方法名称，点击简帛post
 ![alt text](/images/action.png)
 5. 在弹窗下编辑发送参数
-![alt text](/images/tool window.png)
+![alt text](/images/toolWindow.png)

@@ -58,6 +58,43 @@ ___
 保存持久化信息数据
 
 ## 插件开发常用方法
+___
+### AnActionEvent event
+##### 获取当前编辑项目
+Project project = event.getData(LangDataKeys.PROJECT);
+
+##### 获取当前项目的模块名称
+Module module = event.getData(LangDataKeys.MODULE);
+
+##### 获取当前编辑文件并转为java元信息
+PsiFile psiFile = event.getData(LangDataKeys.PSI_FILE);
+//不是JAVA类直接返回
+  if(!(psiFile instanceof  PsiJavaFile)){
+    return;
+   }
+
+PsiJavaFile psiJavaFile = (PsiJavaFile)psiFile;
+PsiClass psiClass = psiJavaFile.getClasses()[0];
+##### 获取当前光标右键位置的元数据信息
+PsiElement psiElement = event.getData(LangDataKeys.PSI_ELEMENT);
+//判断当前光标右键的位置是否为一个函数
+if(!(psiElement instanceof PsiMethod)) {
+            return;
+}
+### ToolWindowManager
+##### 获取指定id的toolWindow窗口
+ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
+ToolWindow toolWindow = toolWindowManager.getToolWindow("id");
+##### 打开toolWindow窗口
+toolWindow.show(() -> {});
+
+### 其他方法
+##### 根据类名获取对应的javaClass
+module:模块元数据 className:完整类名 
+PsiClass param = JavaPsiFacade.getInstance(parameter.getProject()).findClass(className, GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module));
+##### 根据元数据PsiType获取对应的class
+field: PsiField 类属性元数据 
+PsiClass psiClass = PsiUtil.resolveClassInType(field.getType());
 
 
 

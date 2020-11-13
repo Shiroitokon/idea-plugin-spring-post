@@ -10,7 +10,7 @@
 .settings
 .springBeans
 bin/
-.gradle/
+
 # IntelliJ IDEA #
 .idea
 *.iws

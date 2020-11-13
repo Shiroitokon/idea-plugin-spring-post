@@ -1,6 +1,6 @@
 # BlueJ files
 *.ctxt
-
+.gradle/
 # STS #
 .settings/
 .apt_generated

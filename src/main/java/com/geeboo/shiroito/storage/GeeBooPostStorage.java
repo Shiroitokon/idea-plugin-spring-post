@@ -15,6 +15,8 @@ public class GeeBooPostStorage {
 
     private Map<String, Map<String, String>> postSetting = new HashMap<>();
 
+    private Map<String, Map<String, String>> paramStorage = new HashMap<>();
+
     public String getCurrentEvm() {
         return currentEvm;
     }
@@ -37,5 +39,13 @@ public class GeeBooPostStorage {
 
     public void setPrefixModule(String prefixModule) {
         this.prefixModule = prefixModule;
+    }
+
+    public Map<String, Map<String, String>> getParamStorage() {
+        return paramStorage;
+    }
+
+    public void setParamStorage(Map<String, Map<String, String>> paramStorage) {
+        this.paramStorage = paramStorage;
     }
 }

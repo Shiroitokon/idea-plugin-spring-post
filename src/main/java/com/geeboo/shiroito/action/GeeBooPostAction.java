@@ -57,6 +57,8 @@ public class GeeBooPostAction extends AnAction {
 
         String contentType = getContentType(psiMethod);
 
+        cacheParamValueWrapper(uri, formParamMap, requestMethod);
+
         //Ñ¡ÖÐ´°¿Ú
         ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
         ToolWindow geebooPost = toolWindowManager.getToolWindow("geebooPost");
@@ -65,6 +67,29 @@ public class GeeBooPostAction extends AnAction {
         GeeBooPostTableUI instance = GeeBooPostTableUI.getInstance();
         instance.paramFormGenerate(formParamMap, uri, requestMethod, contentType);
 
+    }
+
+    private void cacheParamValueWrapper(String uri, Map<String, String> formParamMap, String requestMethod) {
+
+        if(formParamMap == null || formParamMap.size() == 0) {
+            return;
+        }
+        GeeBooPostStorage state = GeeBooPostStorageService.getInstance().getState();
+        Map<String, Map<String, String>> paramStorage = state.getParamStorage();
+        if(paramStorage == null || paramStorage.size() == 0) {
+            return;
+        }
+
+        Map<String, String> map = paramStorage.get(uri + "_" + requestMethod);
+        if(map == null) {
+            return;
+        }
+
+        for(Map.Entry<String, String> entry: formParamMap.entrySet()) {
+
+            String key = entry.getKey();
+            Optional.ofNullable(map.get(key)).ifPresent(entry::setValue);
+        }
     }
 
     private String getContentType(PsiMethod psiMethod) {

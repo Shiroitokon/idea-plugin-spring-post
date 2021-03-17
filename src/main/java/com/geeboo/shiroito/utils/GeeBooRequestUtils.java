@@ -9,6 +9,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -44,6 +45,10 @@ public class GeeBooRequestUtils {
 //            }
 //        }
 
+        Map<String, Map<String, String>> paramStorage = state.getParamStorage();
+        Map<String, String> stringStringMap = paramStorage.computeIfAbsent(uri + "_" + method, x -> new HashMap<>());
+        stringStringMap.putAll(paramFormMap);
+        GeeBooPostStorageService.getInstance().loadState(state);
 
         String url = domain + uri;
 

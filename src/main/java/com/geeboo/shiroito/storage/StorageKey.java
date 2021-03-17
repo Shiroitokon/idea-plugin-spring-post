@@ -10,7 +10,5 @@ public class StorageKey {
 
     public static final String SECRET = "secret";
 
-    public static final String PREFIX_MODULE = "prefix_module";
-
     public static final String AUTHORIZATION = "authorization";
 }

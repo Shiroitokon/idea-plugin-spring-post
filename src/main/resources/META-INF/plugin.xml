@@ -9,7 +9,7 @@
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
-
+    <idea-version since-build="141"/>
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <!-- 设置菜单栏 -->

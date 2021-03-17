@@ -23,8 +23,8 @@ new FormModel {
 				"height": 27
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
-				"$columnSpecs": "26dlu, 45dlu, 201dlu, labelcompgap, default"
-				"$rowSpecs": "24dlu, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default"
+				"$columnSpecs": "26dlu, 58dlu, 201dlu, labelcompgap, default"
+				"$rowSpecs": "24dlu, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default"
 			} ) {
 				name: "panel1"
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -56,74 +56,37 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label8"
-					"text": "oms-user"
+					"text": "authorization"
 				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 					"gridX": 2
 					"gridY": 5
 					"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "omsUser"
+					name: "authorization"
 				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 					"gridX": 3
 					"gridY": 5
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label9"
-					"text": "oms-pass"
+					"text": "prefix_module"
 				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 					"gridX": 2
-					"gridY": 7
+					"gridY": 17
 					"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "omsPass"
+					name: "prefixModule"
 				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 					"gridX": 3
-					"gridY": 7
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label10"
-					"text": "app-user"
-				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-					"gridX": 2
-					"gridY": 9
-					"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "appUser"
-				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-					"gridX": 3
-					"gridY": 9
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label11"
-					"text": "app-pass"
-				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-					"gridX": 2
-					"gridY": 11
-					"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "appPass"
-				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-					"gridX": 3
-					"gridY": 11
+					"gridY": 17
 				} )
 			}, new FormLayoutConstraints( null ) {
 				"x": 60
 				"y": 90
-				"width": 525
-				"height": 280
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
-				"text": "清空token"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "tokenClearEvent", true ) )
-			}, new FormLayoutConstraints( null ) {
-				"x": 280
-				"y": 380
-				"height": 40
+				"width": 560
+				"height": 275
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 215, 65 )

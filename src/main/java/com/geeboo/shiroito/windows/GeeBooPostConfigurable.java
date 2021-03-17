@@ -65,17 +65,14 @@ public class GeeBooPostConfigurable implements SearchableConfigurable {
 
         String domain = this.geeBooPostSettingUI.getDomain().getText();
         String secret = this.geeBooPostSettingUI.getSecret().getText();
-        String omsUser = this.geeBooPostSettingUI.getOmsUser().getText();
-        String omsPass = this.geeBooPostSettingUI.getOmsPass().getText();
-        String appUser = this.geeBooPostSettingUI.getAppUser().getText();
-        String appPass = this.geeBooPostSettingUI.getAppPass().getText();
+        String authorization = this.geeBooPostSettingUI.getAuthorization().getText();
+        String prefixModule = this.geeBooPostSettingUI.getPrefixModule().getText();
 
         stringStringMap.put(StorageKey.DOMAIN, domain);
         stringStringMap.put(StorageKey.SECRET, secret);
-        stringStringMap.put(StorageKey.OMS_USER, omsUser);
-        stringStringMap.put(StorageKey.OMS_PASS, omsPass);
-        stringStringMap.put(StorageKey.APP_USER, appUser);
-        stringStringMap.put(StorageKey.APP_PASS, appPass);
+        stringStringMap.put(StorageKey.AUTHORIZATION, authorization);
+        state.setPrefixModule(prefixModule);
+
 
         GeeBooPostStorageService.getInstance().loadState(state);
     }

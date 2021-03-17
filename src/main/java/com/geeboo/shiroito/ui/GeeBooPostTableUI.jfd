@@ -37,9 +37,9 @@ new FormModel {
 				} )
 			}, new FormLayoutConstraints( null ) {
 				"x": 75
-				"y": 90
+				"y": 120
 				"width": 430
-				"height": 300
+				"height": 270
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "postB"
@@ -101,16 +101,30 @@ new FormModel {
 				"x": 150
 				"y": 405
 			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "urlLabel"
-				auxiliary() {
-					"JavaCodeGenerator.variableGetter": true
-				}
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "urlText"
 			}, new FormLayoutConstraints( null ) {
-				"x": 85
-				"y": 50
-				"height": 35
-				"width": 405
+				"x": 80
+				"y": 55
+				"width": 420
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "method"
+				"text": "text"
+			}, new FormLayoutConstraints( null ) {
+				"x": 95
+				"y": 90
+				"width": 85
+				"height": 25
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "contentType"
+				"text": "text"
+			}, new FormLayoutConstraints( null ) {
+				"x": 360
+				"y": 90
+				"width": 130
+				"height": 25
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 40, 0 )

@@ -1,5 +1,7 @@
 package com.geeboo.shiroito.action;
 
+import com.geeboo.shiroito.storage.GeeBooPostStorage;
+import com.geeboo.shiroito.storage.GeeBooPostStorageService;
 import com.geeboo.shiroito.ui.GeeBooPostTableUI;
 import com.geeboo.shiroito.utils.ParamValueUtils;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -50,6 +52,10 @@ public class GeeBooPostAction extends AnAction {
         String uri = getNameSpaceUri(module) + getClassUri(psiClass) + getMethodUri(psiMethod);
 
         Map<String, String> formParamMap = getFormParamMap(psiMethod, module);
+        //获取请求方式
+        String requestMethod = getRequestMethod(psiMethod);
+
+        String contentType = getContentType(psiMethod);
 
         //选中窗口
         ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
@@ -57,11 +63,37 @@ public class GeeBooPostAction extends AnAction {
         geebooPost.show(() -> {});
 
         GeeBooPostTableUI instance = GeeBooPostTableUI.getInstance();
-        instance.paramFormGenerate(formParamMap, uri);
+        instance.paramFormGenerate(formParamMap, uri, requestMethod, contentType);
 
     }
 
+    private String getContentType(PsiMethod psiMethod) {
 
+        PsiParameter[] parameters = psiMethod.getParameterList().getParameters();
+        for(PsiParameter parameter: parameters) {
+
+            PsiAnnotation annotation = parameter.getAnnotation("org.springframework.web.bind.annotation.RequestBody");
+
+            if(annotation != null) {
+                return "JSON";
+            }
+
+        }
+
+        return "FORM";
+    }
+
+    private String getRequestMethod(PsiMethod psiMethod) {
+
+        PsiAnnotation annotation = psiMethod.getAnnotation("org.springframework.web.bind.annotation.GetMapping");
+
+        if(annotation != null) {
+            return "GET";
+        }
+
+        return "POST";
+
+    }
 
 
     private Map<String, String> getFormParamMap (PsiMethod psiMethod, Module module) {
@@ -212,10 +244,12 @@ public class GeeBooPostAction extends AnAction {
 
     private String getNameSpaceUri(Module moduleElement) {
         String moduleName = moduleElement.getName();
-        if(moduleName == null || moduleName.equals("")) {
+        GeeBooPostStorage state = GeeBooPostStorageService.getInstance().getState();
+
+        if(moduleName == null || moduleName.equals("") || state == null || null == state.getPrefixModule()) {
             return "";
         }
-        return "/" + moduleName.replaceAll("gb-", "");
+        return "/" + moduleName.replaceAll(state.getPrefixModule(), "");
     }
 
     public String getClassUri(PsiClass controllerClass) {
@@ -246,7 +280,20 @@ public class GeeBooPostAction extends AnAction {
     private String getMethodUri(PsiMethod psiMethod) {
         PsiAnnotation annotation = psiMethod.getAnnotation("org.springframework.web.bind.annotation.PostMapping");
 
+
+        if(annotation == null) {
+            annotation = psiMethod.getAnnotation("org.springframework.web.bind.annotation.GetMapping");
+        }
+
+        if(annotation == null) {
+
+            annotation = psiMethod.getAnnotation("org.springframework.web.bind.annotation.RequestMapping");
+
+        }
+
+
         PsiAnnotationMemberValue psiMethodUrl = annotation.findAttributeValue("value");
+
         if(psiMethodUrl == null) {
             return "";
         }

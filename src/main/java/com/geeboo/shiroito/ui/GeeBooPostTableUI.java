@@ -5,7 +5,6 @@
 package com.geeboo.shiroito.ui;
 
 import com.geeboo.shiroito.utils.GeeBooRequestUtils;
-import com.geeboo.shiroito.utils.ParamValueUtils;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.*;
 
@@ -69,17 +68,15 @@ public class GeeBooPostTableUI{
         Thread thread = new Thread(() -> {
             Map<String, String> paramFormMap = getParamFormMap();
             Object evm = evmTypeComBox.getSelectedItem();
-            Object userTye = userTypeComBox.getSelectedItem();
-            String uri = urlLabel.getText();
-            String result = GeeBooRequestUtils.post(paramFormMap, evm.toString(), userTye.toString(), uri);
+            Object signTye = userTypeComBox.getSelectedItem();
+            String uri = urlText.getText();
+            String contentTypeText = this.contentType.getText();
+            String methodText = this.method.getText();
+            String result = GeeBooRequestUtils.http(paramFormMap, evm.toString(), signTye.toString(), uri, methodText, contentTypeText);
             resultArea.setText(result);
         });
 
         thread.start();
-    }
-
-    public JLabel getUrlLabel() {
-        return urlLabel;
     }
 
     private void initComponents() {
@@ -96,7 +93,9 @@ public class GeeBooPostTableUI{
         label2 = new JLabel();
         evmTypeComBox = new JComboBox();
         addParamB = new JButton();
-        urlLabel = new JLabel();
+        urlText = new JTextField();
+        method = new JLabel();
+        contentType = new JLabel();
         CellConstraints cc = new CellConstraints();
 
         //======== mainGeebooWindow ========
@@ -126,7 +125,7 @@ public class GeeBooPostTableUI{
                 scrollPane2.setViewportView(paramFormPanel);
             }
             mainGeebooWindow.add(scrollPane2, JLayeredPane.DEFAULT_LAYER);
-            scrollPane2.setBounds(75, 90, 430, 300);
+            scrollPane2.setBounds(75, 120, 430, 270);
 
             //---- postB ----
             postB.setText("\u63d0\u4ea4");
@@ -174,8 +173,18 @@ public class GeeBooPostTableUI{
             addParamB.addActionListener(e -> addParamEvent(e));
             mainGeebooWindow.add(addParamB, JLayeredPane.DEFAULT_LAYER);
             addParamB.setBounds(new Rectangle(new Point(150, 405), addParamB.getPreferredSize()));
-            mainGeebooWindow.add(urlLabel, JLayeredPane.DEFAULT_LAYER);
-            urlLabel.setBounds(85, 50, 405, 35);
+            mainGeebooWindow.add(urlText, JLayeredPane.DEFAULT_LAYER);
+            urlText.setBounds(80, 55, 420, urlText.getPreferredSize().height);
+
+            //---- method ----
+            method.setText("text");
+            mainGeebooWindow.add(method, JLayeredPane.DEFAULT_LAYER);
+            method.setBounds(95, 90, 85, 25);
+
+            //---- contentType ----
+            contentType.setText("text");
+            mainGeebooWindow.add(contentType, JLayeredPane.DEFAULT_LAYER);
+            contentType.setBounds(360, 90, 130, 25);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -193,7 +202,9 @@ public class GeeBooPostTableUI{
     private JLabel label2;
     private JComboBox evmTypeComBox;
     private JButton addParamB;
-    private JLabel urlLabel;
+    private JTextField urlText;
+    private JLabel method;
+    private JLabel contentType;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 
@@ -204,8 +215,8 @@ public class GeeBooPostTableUI{
     }
 
     private void initComBox() {
-        userTypeComBox.addItem("APP");
-        userTypeComBox.addItem("OMS");
+        userTypeComBox.addItem("sign");
+        userTypeComBox.addItem("u-sign");
 
         evmTypeComBox.addItem("local");
         evmTypeComBox.addItem("dev");
@@ -249,12 +260,13 @@ public class GeeBooPostTableUI{
         return instance;
     }
 
-    public void paramFormGenerate(Map<String, String> map, String url) {
+    public void paramFormGenerate(Map<String, String> map, String url, String method, String contentType) {
 
-        paramFormPanel.removeAll();
-        resultArea.setText("");
-        urlLabel.setText(url);
-
+        this.paramFormPanel.removeAll();
+        this.resultArea.setText("");
+        this.urlText.setText(url);
+        this.contentType.setText(contentType);
+        this.method.setText(method);
         int size = map.size();
 
         if(size == 0) {

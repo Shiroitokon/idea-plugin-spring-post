@@ -10,17 +10,7 @@ public class StorageKey {
 
     public static final String SECRET = "secret";
 
-    public static final String OMS_USER = "omsUser";
+    public static final String PREFIX_MODULE = "prefix_module";
 
-    public static final String OMS_PASS = "omsPass";
-
-    public static final String APP_USER = "appUser";
-
-    public static final String APP_PASS = "appPass";
-
-    public static String getTokenKey(String userType , String evm) {
-        return evm + "_" + userType;
-    }
-
-
+    public static final String AUTHORIZATION = "authorization";
 }

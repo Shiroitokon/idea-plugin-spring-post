@@ -11,9 +11,9 @@ public class GeeBooPostStorage {
     //当前环境
     private String currentEvm = "local";
 
-    private Map<String, Map<String, String>> postSetting = new HashMap<>();
+    private String prefixModule = "";
 
-    private Map<String, String> tokenMap = new HashMap<>();
+    private Map<String, Map<String, String>> postSetting = new HashMap<>();
 
     public String getCurrentEvm() {
         return currentEvm;
@@ -31,11 +31,11 @@ public class GeeBooPostStorage {
         this.postSetting = postSetting;
     }
 
-    public Map<String, String> getTokenMap() {
-        return tokenMap;
+    public String getPrefixModule() {
+        return prefixModule;
     }
 
-    public void setTokenMap(Map<String, String> tokenMap) {
-        this.tokenMap = tokenMap;
+    public void setPrefixModule(String prefixModule) {
+        this.prefixModule = prefixModule;
     }
 }
